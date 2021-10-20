@@ -1,25 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from 'react';
+import { Layout } from 'antd';
+import { BrowserRouter } from 'react-router-dom';
+import Menus from '@src/components/Menus';
+import Routes from './components/Routes';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout style={{ minHeight: '100vh' }}>
+      <BrowserRouter>
+        {/* 使用了路由懒加载，所以需要使用<Suspense>包起来 */}
+        <Suspense fallback={<div></div>}>
+          <Menus />
+          <Routes />
+        </Suspense>
+      </BrowserRouter>
+    </Layout>
   );
 }
 
