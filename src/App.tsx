@@ -1,8 +1,10 @@
 import React, { Suspense } from 'react';
 import { Layout } from 'antd';
 import { BrowserRouter } from 'react-router-dom';
-import Menus from '@src/components/Menus';
-import Routes from './components/Routes';
+import { GlobalProvider } from '@src/store/GlobalProvider';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import Login from '@src/pages/Login';
+import LayoutDefault from '@src/layout';
 
 function App() {
   return (
@@ -10,8 +12,14 @@ function App() {
       <BrowserRouter>
         {/* 使用了路由懒加载，所以需要使用<Suspense>包起来 */}
         <Suspense fallback={<div></div>}>
-          <Menus />
-          <Routes />
+          <GlobalProvider>
+            <></>
+          </GlobalProvider>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route component={LayoutDefault} />
+            <Redirect from="/" to="/user/list" />
+          </Switch>
         </Suspense>
       </BrowserRouter>
     </Layout>

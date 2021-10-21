@@ -9,5 +9,6 @@ interface childrenType {
 export interface routerConfigType {
   name: string;
   path: string;
+  component?: any;
   children: childrenType[];
 }

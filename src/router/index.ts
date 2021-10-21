@@ -2,6 +2,7 @@ import adminRouter from './router';
 
 const routes = [...adminRouter];
 
+// 一级侧边栏数组
 export const rootSubmenuKeys = (() => {
   const arr: string[] = [];
   for (let index = 0; index < routes.length; index++) {
@@ -11,7 +12,7 @@ export const rootSubmenuKeys = (() => {
       arr.push(e.path);
       e.children &&
         e.children.forEach((i) => {
-          arr.push(i.path);
+          //arr.push(i.path);
         });
     });
     //}

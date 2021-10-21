@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import routes, { rootSubmenuKeys } from '@src/router';
@@ -7,14 +7,26 @@ const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 const Menus = () => {
-  const onOpenChange = (keys: any) => {};
+  const pathnameArr = window.location?.pathname.split('/');
+  const currentOpenKeys = pathnameArr.slice(0, 2).join('/');
+  const [openKeys, setOpenKeys] = useState([currentOpenKeys]);
+
+  // console.log('rootSubmenuKeys', rootSubmenuKeys);
+  // console.log('currentOpenKeys', currentOpenKeys);
+  // console.log('pathnameArr', pathnameArr);
+
+  const onOpenChange = (keys: any) => {
+    // console.log(keys);
+    const latestOpenKey = keys.find((key: string) => openKeys.indexOf(key) === -1);
+    rootSubmenuKeys.indexOf(latestOpenKey) === -1 ? setOpenKeys(keys) : setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+  };
 
   return (
-    <Sider width={160}>
+    <Sider>
       {routes.map((routeItem) => (
         <div key={routeItem.path + routeItem.name}>
           <div className="layout-tit">{routeItem.name}</div>
-          <Menu mode="inline" theme="dark" onOpenChange={onOpenChange}>
+          <Menu mode="inline" theme="dark" onOpenChange={onOpenChange} openKeys={openKeys} selectedKeys={[window.location?.pathname]}>
             {routeItem.children.map((mainPage) => {
               const MenuItem = (
                 <Menu.Item key={mainPage.path}>
@@ -38,7 +50,7 @@ const Menus = () => {
                   })}
                 </SubMenu>
               );
-              return !mainPage.children ? mainPage.isHide && MenuItem : SubMenuCpt;
+              return !mainPage.children ? !mainPage.isHide && MenuItem : SubMenuCpt;
             })}
           </Menu>
         </div>
