@@ -24,19 +24,8 @@ module.exports = {
   },
   rules: {
     // 自定义的一些规则
-    'prettier/prettier': 'error',
-    'linebreak-style': ['error', 'unix'],
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
-    'react/jsx-uses-react': 'error',
-    'react/jsx-uses-vars': 'error',
-    'react/react-in-jsx-scope': 'error',
-    'react/sort-comp': 'error', // 强制组件方法顺序
-    'valid-typeof': [
-      'warn',
-      {
-        requireStringLiterals: false
-      }
-    ]
+    'no-debugger': 2,
+    'prettier/prettier': 'off',
+    'linebreak-style': 'off'
   }
 };

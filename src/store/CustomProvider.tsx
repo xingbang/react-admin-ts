@@ -10,7 +10,7 @@ export type CustomAction = { type?: ActionType; payload?: DeepPartial<CustomStat
 export type CustomDispatch = React.Dispatch<CustomAction>;
 export type CustomReducer = React.Reducer<CustomState, CustomAction>;
 
-const Idispatch: CustomDispatch = () => {};
+const Idispatch: CustomDispatch = () => { };
 
 export const Context: React.Context<{
   _state: CustomState;

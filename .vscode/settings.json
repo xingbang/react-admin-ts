@@ -13,7 +13,7 @@
 	},
 	"editor.codeActionsOnSave": {
     // For ESLint
-    "source.fixAll.eslint": false
+    "source.fixAll.eslint": true
 	},
   "eslint.options": {
     "extensions": [".js", ".ts", ".tsx", "jsx", "html"]

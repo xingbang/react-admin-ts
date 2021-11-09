@@ -1,42 +1,44 @@
-import { routerConfigType } from './indexTyings';
-import Login from '@src/pages/Login';
-import List from '@src/pages/List';
+export interface MenuDataItem {
+  name: string; // 菜单名称
+  icon?: string;
+  path: string;
+  children?: MenuDataItem[];
+  permission?: string; // 权限标识
+  isHide?: boolean; // 是否隐藏
+}
 
-const adminRouter: routerConfigType[] = [
+const menuData: MenuDataItem[] = [
   {
-    name: '管理系统',
-    path: '/',
+    name: '书籍',
+    path: '/book',
+    permission: 'index',
+    icon: 'ReadOutlined',
     children: [
       {
-        name: '书籍',
-        path: '/book',
-        children: [
-          {
-            name: '热门书籍',
-            path: '/book/hot',
-            component: List
-          }
-        ]
-      },
-      {
-        name: '个人中心',
-        path: '/user',
-        children: [
-          {
-            name: '人员详情',
-            path: '/user/list',
-            component: List
-          }
-        ]
-      },
-      {
-        name: '登录',
-        path: '/login',
-        component: Login,
-        isHide: true
+        name: '热门书籍',
+        path: '/book/hot',
+        permission: 'index'
       }
     ]
+  },
+  {
+    name: '个人中心',
+    path: '/user',
+    permission: 'index',
+    icon: 'TeamOutlined',
+    children: [
+      {
+        name: '人员详情',
+        path: '/user/list',
+        permission: 'index'
+      }
+    ]
+  },
+  {
+    name: '登录',
+    path: '/login',
+    isHide: true
   }
 ];
 
-export default adminRouter;
+export default menuData;
