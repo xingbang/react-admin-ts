@@ -35,6 +35,9 @@ export const getRouterData = () => {
   const routerData: any = {
     '/book/hot': {
       component: BookHot
+    },
+    '/book/list': {
+      component: BookHot
     }
   };
 

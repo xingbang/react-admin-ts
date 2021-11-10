@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Layout, Breadcrumb } from 'antd';
+import React from 'react';
+import { Layout } from 'antd';
 import { CustomProvider } from '@src/store/CustomProvider';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import SideMenu from '@src/components/SideMenu';
@@ -8,9 +8,11 @@ import { MenuDataItem } from '@src/router/router';
 import LayoutHeader from '@src/components/LayoutHeader';
 import { getRouterData } from '@src/router/routerCompoent';
 import PermissionPage from '@src/components/PermissionPage';
+import NotFound from '@src/pages/Exception/404';
+
 import './index.less';
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 const permission = [
   {
@@ -60,24 +62,18 @@ const LayoutDefault = (props: any) => {
                   path={item.path}
                   exact={true}
                   render={(props) => {
-                    let isPermission: boolean = false;
-                    permission.forEach((per: any) => {
-                      if (per.permission === item.permission) {
-                        isPermission = true;
-                      }
-                    });
                     if (!pathAuto[item.path]) {
                       return <item.component {...props} />;
                     }
                     return (
-                      <PermissionPage isPermission={isPermission}>
+                      <PermissionPage permission={pathAuto[item.path]} permissionList={permission}>
                         <item.component {...props} />
                       </PermissionPage>
                     );
                   }}
                 />
               ))}
-              {/* <Route render={NotFound} /> */}
+              <Route render={NotFound} />
             </Switch>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Made with ❤ by xingbang</Footer>

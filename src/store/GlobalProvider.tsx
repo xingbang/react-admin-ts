@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 
 class InitState {
-  onLoginFailure = false; // 登录状态 true | false
+  onLogin = false; // 登录状态 true | false
 }
 
 const initialState = new InitState();
@@ -21,7 +21,7 @@ const reducer: GlobalReducer = (state, action) => {
   }
 };
 
-const Idispatch: GlobalDispatch = () => {};
+const Idispatch: GlobalDispatch = () => { };
 
 export const Context: React.Context<{
   g_state: GlobalState;

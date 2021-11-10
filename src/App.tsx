@@ -5,6 +5,7 @@ import { GlobalProvider } from '@src/store/GlobalProvider';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Login from '@src/pages/Login';
 import LayoutDefault from '@src/layout';
+import OnLogin from '@src/components/OnLogin';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         {/* 使用了路由懒加载，所以需要使用<Suspense>包起来 */}
         <Suspense fallback={<div></div>}>
           <GlobalProvider>
-            <></>
+            <OnLogin />
           </GlobalProvider>
           <Switch>
             <Route path="/login" component={Login} />
