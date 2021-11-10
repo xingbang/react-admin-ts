@@ -15,6 +15,11 @@ const menuData: MenuDataItem[] = [
     icon: 'ReadOutlined',
     children: [
       {
+        name: '图书列表',
+        path: '/book/list',
+        permission: 'book'
+      },
+      {
         name: '热门书籍',
         path: '/book/hot',
         permission: 'index'
