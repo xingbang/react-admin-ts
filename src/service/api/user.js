@@ -4,7 +4,7 @@ import request from '../http';
 export function getToken(params) {
   return request({
     url: process.env.REACT_APP_API_URL + '/api/v1/token',
-    method: 'post',
-    params
+    method: 'POST',
+    data: params
   });
 }

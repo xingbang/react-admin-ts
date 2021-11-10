@@ -9,7 +9,7 @@ const Login: React.FC = (props: any) => {
   // 登录
   const onFinish = (value: any) => {
     const { account, secret } = value;
-    getToken({ account, secret, type: 101 }).then(data => {
+    getToken({ type: 101, account, secret }).then(data => {
       console.log(data)
       // props.history.push('/user/list');
     });
