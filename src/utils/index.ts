@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 
-export const getToken = (tokenKey: string) => {
+export const getSession = (tokenKey: string) => {
   return sessionStorage.getItem(tokenKey);
 };
 
-export const setToken = (tokenKey: string, token: string) => {
+export const setSession = (tokenKey: string, token: string) => {
   sessionStorage.setItem(tokenKey, token);
 };
 
-export const removeToken = (tokenKey: string) => {
+export const removeSession = (tokenKey: string) => {
   sessionStorage.removeItem(tokenKey);
 };
 

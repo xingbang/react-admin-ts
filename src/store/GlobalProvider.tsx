@@ -1,7 +1,15 @@
 import React, { createContext, useReducer } from 'react';
+import { getSession } from '@src/utils';
+let onLogin: boolean = false;
+
+console.log(!!getSession('TOKEN'));
+
+if (!!getSession('TOKEN') || window.location.pathname === '/login') {
+  onLogin = true
+}
 
 class InitState {
-  onLogin = false; // 登录状态 true | false
+  onLogin = onLogin; // 登录状态 true | false
 }
 
 const initialState = new InitState();
@@ -30,8 +38,7 @@ export const Context: React.Context<{
 
 export const GlobalProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer<GlobalReducer>(reducer, initialState);
-  sessionStorage.setItem('g_redux', JSON.stringify(state));
-
+  // sessionStorage.setItem('g_redux', JSON.stringify(state));
   window.g_store = {
     g_state: state,
     g_dispatch: dispatch

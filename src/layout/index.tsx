@@ -21,7 +21,7 @@ const permission = [
   }
 ];
 
-const LayoutDefault = (props: any) => {
+const LayoutDefault: React.FC = (props: any) => {
   // 菜单权限path: persion
   const getPathAuto = (data: MenuDataItem[]) => {
     let obj: any = {};
@@ -38,8 +38,6 @@ const LayoutDefault = (props: any) => {
   };
 
   const pathAuto = getPathAuto(menuData);
-
-  console.log(pathAuto, 'pathAuto');
 
   return (
     <Layout className="layout-main" style={{ height: 'auto', minHeight: '100vh' }}>

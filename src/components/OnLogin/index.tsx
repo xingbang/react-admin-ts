@@ -4,7 +4,7 @@ import { Context } from '@src/store/GlobalProvider';
 import { withRouter } from "react-router-dom";
 
 const OnLogin: React.FC = (props: any) => {
-  const { g_state, g_dispatch } = useContext(Context);
+  const { g_state } = useContext(Context);
 
   const [isModalVisible, setIsModalVisible] = useState(!g_state.onLogin);
 

@@ -1,19 +1,36 @@
 import React, { useContext } from 'react';
-import { Layout, Breadcrumb } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { Layout, Breadcrumb, Dropdown, Avatar, Menu } from 'antd';
+import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, LoginOutlined } from '@ant-design/icons';
 import { Context } from '@src/store/CustomProvider';
+import { removeSession } from '@src/utils';
+import { withRouter } from "react-router-dom";
 import menuData from '@src/router/router';
 import styles from './index.less';
 
 const { Header } = Layout;
+const MenuItem = Menu.Item;
 
-const LayoutHeader = () => {
+const LayoutHeader: React.FC = (props: any) => {
   const { _dispatch, _state } = useContext(Context);
+  const logout = () => {
+    removeSession('TOKEN');
+    removeSession('USERNAME');
+    props.history.push('/login');
+  }
+
+  const menu = (
+    <Menu>
+      {/* <Menu.Divider /> */}
+      <MenuItem key="lagout">
+        <div onClick={logout}> <LoginOutlined />  退出登录</div>
+      </MenuItem>
+    </Menu>
+  );
+
   const changeCollapsed = () => {
     _dispatch({
       isCollapsed: !_state.isCollapsed
     })
-    console.log(_state)
   };
 
   const getBreadcrumbList = () => {
@@ -35,12 +52,23 @@ const LayoutHeader = () => {
     getBreadcrumb(menuData);
     return arr
   };
+
   return (<>
     <Header className={styles.layoutHeader} >
-      <div className={styles.layoutColl} onClick={changeCollapsed}>
-        {
-          _state.isCollapsed ? <MenuUnfoldOutlined style={{ fontSize: 24 }} /> : <MenuFoldOutlined style={{ fontSize: 24 }} />
-        }
+      <div className={styles.layoutColl}>
+        <span onClick={changeCollapsed}>
+          {
+            _state.isCollapsed ? <MenuUnfoldOutlined style={{ fontSize: 24 }} /> : <MenuFoldOutlined style={{ fontSize: 24 }} />
+          }
+        </span>
+        <ul className={styles.rightMenu}>
+          <Dropdown overlay={menu}>
+            <li className={styles.menuItem}>
+              <Avatar icon={<UserOutlined />} />
+              <span className={styles.username}></span>
+            </li>
+          </Dropdown>
+        </ul>
       </div>
     </Header>
     <Breadcrumb className={styles.layoutBread} >
@@ -53,4 +81,4 @@ const LayoutHeader = () => {
   </>)
 }
 
-export default LayoutHeader;
+export default withRouter(LayoutHeader);

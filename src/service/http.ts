@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { getToken } from '@src/utils';
+import { message } from 'antd';
+import { getSession } from '@src/utils';
 
 const Request = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -9,26 +10,29 @@ const Request = axios.create({
 // 请求拦截器
 Request.interceptors.request.use(
   (config: AxiosRequestConfig | any) => {
-    if (getToken('SET_TOKEN')) {
-      config.headers['Authorization'] = 'Bearer ' + getToken('SET_TOKEN');
+    if (getSession('TOKEN')) {
+      config.headers['Authorization'] = 'Bearer ' + getSession('TOKEN');
     }
     return config;
   },
   (error) => {
-    error.data = {};
-    error.data.msg = '服务器异常，请联系管理员';
+    message.error('服务器异常，请联系管理员');
     return Promise.resolve(error);
   }
 );
 
 // 响应拦截器
 Request.interceptors.response.use(
-  (response: AxiosResponse) => {
-    return response;
+  (response: AxiosResponse | any) => {
+    if (response.data.error_code != 0) {
+      message.error(response.data.msg);
+      return Promise.reject();
+    } else {
+      return response.data;
+    }
   },
   (error) => {
-    error.data = {};
-    error.data.msg = '服务器异常，请联系管理员';
+    message.error('服务器异常，请联系管理员');
     return Promise.resolve(error);
   }
 );

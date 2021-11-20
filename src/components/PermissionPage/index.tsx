@@ -13,7 +13,6 @@ const PermissionPage: React.FC<IPermissionPageProps> = (props) => {
       isPermission = true;
     }
   });
-  console.log(isPermission, 'isPermission')
   return <React.Fragment>{isPermission ? props.children : <NoAuto />}</React.Fragment>;
 };
 

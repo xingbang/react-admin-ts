@@ -11,10 +11,6 @@ const { Sider } = Layout;
 interface PermissionModelState {
   id: number;
   permission: string;
-  // 菜单权限 键-值：菜单权限标识-主键ID
-  // menuMarkMap: Record<string, number>;
-  // 按钮权限 键-值：按钮权限标识-主键ID
-  // buttonMap: Record<string, number>
 }
 
 interface ISideMenuProps {
