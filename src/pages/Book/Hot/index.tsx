@@ -1,21 +1,11 @@
-import React, { useEffect, useReducer } from 'react';
-import { message, Table, Button, Modal, Form, Input } from 'antd';
+import React, { useReducer } from 'react';
+import { message, Button, Modal, Form, Input } from 'antd';
 import { getBootHot, creatHotBook, deleteHotBook } from '@src/service/api/book';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-table';
-import ProTable, { TableDropdown } from '@ant-design/pro-table';
 import { useAsync } from '@src/utils/useAsync';
-
-
-export type TableListItem = {
-  id: number;
-  author: string;
-  title: string;
-  count: number;
-  image: string;
-  index: number;
-  status: number;
-};
+import ProTable from '@ant-design/pro-table';
+import { TableListItem } from '@src/typing/Book';
 
 const List: React.FC = (props: any) => {
 
@@ -94,20 +84,6 @@ const List: React.FC = (props: any) => {
         }
       })
     })
-  }
-
-  // 分页change
-  const onChange = (page: number, pageSize?: number) => {
-    dispatch({
-      type: 'success',
-      payload: {
-        listQuery: {
-          page: page,    // 当前页数
-          limit: pageSize,  // 每页数据
-        }
-      }
-    })
-
   }
 
   const deleteRow = (index: number): void => {
