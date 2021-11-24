@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Layout } from 'antd';
 import { CustomProvider } from '@src/store/CustomProvider';
+import { Context } from '@src/store/GlobalProvider';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import SideMenu from '@src/components/SideMenu';
 import menuData from '@src/router/router';
@@ -14,14 +15,12 @@ import './index.less';
 
 const { Content, Footer } = Layout;
 
-const permission = [
-  {
-    id: 1000,
-    permission: 'index'
-  }
-];
-
 const LayoutDefault: React.FC = (props: any) => {
+
+  const { g_state } = useContext(Context);
+  const { Menu } = g_state;
+  console.log(Menu)
+
   // 菜单权限path: persion
   const getPathAuto = (data: MenuDataItem[]) => {
     let obj: any = {};
@@ -39,10 +38,12 @@ const LayoutDefault: React.FC = (props: any) => {
 
   const pathAuto = getPathAuto(menuData);
 
+  // console.log(pathAuto, 'pathAuto')
+
   return (
     <Layout className="layout-main" style={{ height: 'auto', minHeight: '100vh' }}>
       <CustomProvider>
-        <SideMenu menuData={menuData} history={props.history} location={props.location} permission={permission} />
+        <SideMenu menuData={menuData} history={props.history} location={props.location} permission={Menu} />
         <Layout className="site-layout">
           <LayoutHeader />
           <Content
@@ -60,11 +61,12 @@ const LayoutDefault: React.FC = (props: any) => {
                   path={item.path}
                   exact={true}
                   render={(props) => {
+                    console.log(item)
                     if (!pathAuto[item.path]) {
                       return <item.component {...props} />;
                     }
                     return (
-                      <PermissionPage permission={pathAuto[item.path]} permissionList={permission}>
+                      <PermissionPage permission={pathAuto[item.path]} permissionList={Menu}>
                         <item.component {...props} />
                       </PermissionPage>
                     );

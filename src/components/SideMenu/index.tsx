@@ -8,16 +8,25 @@ import styles from './index.less';
 const SubMenu = Menu.SubMenu;
 const { Sider } = Layout;
 
-interface PermissionModelState {
-  id: number;
-  permission: string;
+type MenuId = number;   // 菜单的主键ID；
+
+export interface PermissionModelState {
+  loading?: boolean;
+  // 菜单权限 键-值：菜单权限标识-主键ID
+  menuMarkMap: {
+    [propName: string]: MenuId;
+  };
+  // 按钮权限 键-值：按钮权限标识-主键ID
+  buttonMap: {
+    [propName: string]: MenuId
+  }
 }
 
 interface ISideMenuProps {
   menuData: MenuDataItem[];
   location: RouteComponentProps['location'];
   history: RouteComponentProps['history'];
-  permission: PermissionModelState[];
+  permission: PermissionModelState;
 }
 
 const SideMenu = (props: ISideMenuProps) => {
@@ -109,20 +118,22 @@ const SideMenu = (props: ISideMenuProps) => {
   }
 
   // 过滤权限菜单
-  const filterMenuData = (menuData: MenuDataItem[], permissionMap: PermissionModelState[]): MenuDataItem[] => {
+  const filterMenuData = (menuData: MenuDataItem[], permissionMap: PermissionModelState['menuMarkMap']): MenuDataItem[] => {
     const dfs = (menuList: MenuDataItem[]): MenuDataItem[] => {
       // debugger;
       const ret = [];
       for (let i = 0; i < menuList.length; i++) {
         const item = menuList[i];
-        for (let j = 0; j < permissionMap.length; j++) {
-          if (permissionMap[j].permission === item.permission) {
+        if (!item.isHide) {
+          //for (let j = 0; j < permissionMap.length; j++) {
+          if (!item.permission || permissionMap[item.permission]) {
             if (item.children) {
               const children = dfs(item.children)
               item.children = children
             }
             ret.push(item)
           }
+          //}
         }
       }
       return ret
@@ -136,7 +147,6 @@ const SideMenu = (props: ISideMenuProps) => {
   };
 
   const handMenuChange = (keys: any) => {
-    console.log(keys)
     const latestOpenKey = keys.find((key: string) => keys.indexOf(key) === -1);
     if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
       setOpenKeys(keys);
@@ -151,7 +161,7 @@ const SideMenu = (props: ISideMenuProps) => {
       <div className={styles.sideTit}>管理系统</div>
       <Menu theme="dark" mode="inline" selectedKeys={selectKeys} openKeys={openKeys} onSelect={handSelect} onOpenChange={handMenuChange}>
         {
-          getNavMenuItems(filterMenuData(props.menuData, props.permission))
+          getNavMenuItems(filterMenuData(props.menuData, props.permission.menuMarkMap))
         }
       </Menu>
     </Sider>

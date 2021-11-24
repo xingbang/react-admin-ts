@@ -1,15 +1,22 @@
 import React, { createContext, useReducer } from 'react';
 import { getSession } from '@src/utils';
 let onLogin: boolean = false;
+let MENU: any = { menuMarkMap: {}, buttonMap: {} };
 
-console.log(!!getSession('TOKEN'));
+// console.log(!!getSession('MENU'));
 
 if (!!getSession('TOKEN') || window.location.pathname === '/login') {
   onLogin = true
 }
 
+if (!!getSession('MENU')) {
+  let Menu: any = getSession('MENU');
+  MENU = JSON.parse(Menu)
+}
+
 class InitState {
   onLogin = onLogin; // 登录状态 true | false
+  Menu = MENU;       // 权限菜单
 }
 
 const initialState = new InitState();

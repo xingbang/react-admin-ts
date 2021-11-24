@@ -49,7 +49,7 @@ const List: React.FC = (props: any) => {
   //   console.log(listQuery)
   //   run(getBootHot(listQuery))
   // }, [listQuery.page, listQuery.limit, isQuery])
-  console.log(isSuccess, 'params===')
+  // console.log(isSuccess, 'params===')
   // add
   const handleAdd = () => {
     dispatch({

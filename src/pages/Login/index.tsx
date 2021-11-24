@@ -1,18 +1,51 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Layout, Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Context } from '@src/store/GlobalProvider';
 import { getToken } from '@src/service/api/user';
 import { setSession } from '@src/utils';
 
 import './index.less';
 
 const Login: React.FC = (props: any) => {
+
+  const { g_state, g_dispatch } = useContext(Context);
+
   // 登录
   const onFinish = (value: any) => {
     const { account, secret } = value;
     getToken({ type: 101, account, secret }).then((data: any) => {
       setSession("TOKEN", data.token);
       setSession("USERNAME", account);
+      // 查询权限菜单 
+      let permissionList: any[] = [
+        {
+          id: 1000,
+          permission: 'user',
+          type: 1
+        }, {
+          id: 2000,
+          permission: 'book',
+          type: 1
+        }
+      ];
+
+      let menuMarkMap: any = {};
+      let buttonMap: any = {};
+      permissionList.forEach(item => {
+        if (item.type === 1) {
+          menuMarkMap[item.permission] = item.id;
+        } else {
+          buttonMap[item.permission] = item.id;
+        }
+      });
+      const permission = {
+        menuMarkMap: menuMarkMap,
+        buttonMap: buttonMap
+      }
+      // 菜单写进session
+      setSession("MENU", JSON.stringify(permission));
+      g_dispatch({ type: 'update', payload: { Menu: permission } })
       props.history.push('/user/list');
     });
   };

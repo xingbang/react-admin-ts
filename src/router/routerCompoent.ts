@@ -49,6 +49,5 @@ export const getRouterData = () => {
       name: routerData[item].name || menuDataTemp[item]
     };
   });
-  console.log(getRoutes(routerDataWithName));
   return getRoutes(routerDataWithName);
 };

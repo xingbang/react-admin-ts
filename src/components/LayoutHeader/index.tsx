@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Layout, Breadcrumb, Dropdown, Avatar, Menu } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, LoginOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, LoginOutlined, HomeOutlined } from '@ant-design/icons';
 import { Context } from '@src/store/CustomProvider';
 import { removeSession } from '@src/utils';
 import { withRouter } from "react-router-dom";
@@ -72,6 +72,7 @@ const LayoutHeader: React.FC = (props: any) => {
       </div>
     </Header>
     <Breadcrumb className={styles.layoutBread} >
+      <Breadcrumb.Item href="/"><HomeOutlined /></Breadcrumb.Item>
       {
         getBreadcrumbList().map((item: any) => (
           <Breadcrumb.Item key={item.path}>{item.name}</Breadcrumb.Item>

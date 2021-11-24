@@ -15,12 +15,12 @@ function App() {
         <Suspense fallback={<div></div>}>
           <GlobalProvider>
             <OnLogin />
+            <Switch>
+              <Route path="/login" component={Login} />
+              <Route component={LayoutDefault} />
+              <Redirect from="/" to="/user/list" />
+            </Switch>
           </GlobalProvider>
-          <Switch>
-            <Route path="/login" component={Login} />
-            <Route component={LayoutDefault} />
-            <Redirect from="/" to="/user/list" />
-          </Switch>
         </Suspense>
       </BrowserRouter>
     </Layout>

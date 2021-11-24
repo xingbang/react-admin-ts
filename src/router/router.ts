@@ -11,7 +11,7 @@ const menuData: MenuDataItem[] = [
   {
     name: '书籍',
     path: '/book',
-    permission: 'index',
+    permission: 'book',
     icon: 'ReadOutlined',
     children: [
       {
@@ -22,20 +22,20 @@ const menuData: MenuDataItem[] = [
       {
         name: '热门书籍',
         path: '/book/hot',
-        permission: 'index'
+        permission: 'book'
       }
     ]
   },
   {
     name: '个人中心',
     path: '/user',
-    permission: 'index',
+    permission: 'user',
     icon: 'TeamOutlined',
     children: [
       {
         name: '人员详情',
         path: '/user/list',
-        permission: 'index'
+        permission: 'user'
       }
     ]
   },
