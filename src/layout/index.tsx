@@ -19,7 +19,6 @@ const LayoutDefault: React.FC = (props: any) => {
 
   const { g_state } = useContext(Context);
   const { Menu } = g_state;
-  console.log(Menu)
 
   // 菜单权限path: persion
   const getPathAuto = (data: MenuDataItem[]) => {

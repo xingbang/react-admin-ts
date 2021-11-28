@@ -22,7 +22,7 @@ const menuData: MenuDataItem[] = [
       {
         name: '热门书籍',
         path: '/book/hot',
-        permission: 'book'
+        permission: 'index'
       }
     ]
   },

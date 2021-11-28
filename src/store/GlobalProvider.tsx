@@ -45,7 +45,7 @@ export const Context: React.Context<{
 
 export const GlobalProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer<GlobalReducer>(reducer, initialState);
-  // sessionStorage.setItem('g_redux', JSON.stringify(state));
+  sessionStorage.setItem('g_redux', JSON.stringify(state));
   window.g_store = {
     g_state: state,
     g_dispatch: dispatch

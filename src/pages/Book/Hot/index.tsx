@@ -1,88 +1,24 @@
-import React, { useReducer } from 'react';
-import { message, Button, Modal, Form, Input } from 'antd';
-import { getBootHot, creatHotBook, deleteHotBook } from '@src/service/api/book';
+import React, { useContext, useReducer } from 'react';
+import { message, Button, Modal } from 'antd';
+import { getBootHot, deleteHotBook } from '@src/service/api/book';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Context } from '@src/store/CustomProvider';
 import type { ProColumns } from '@ant-design/pro-table';
 import { useAsync } from '@src/utils/useAsync';
 import ProTable from '@ant-design/pro-table';
 import { TableListItem } from '@src/typing/Book';
+import AddModal from './components/AddModal';
 
 const List: React.FC = (props: any) => {
 
-  const initState = {
-    isQuery: '',
-    isModalVisible: false,
-    selectData: [],
-    listQuery: {
-      page: 1,   // 当前页数
-      limit: 10,  // 每页条数
-    },
-    temp: {
-      id: '',
-      index: '',
-      title: '',
-      author: '',
-      image: ''
-    }
-  }
-  const reducer = (state: any, action: any) => {
-    switch (action.type) {
-      case 'success':
-        return {
-          ...state,
-          ...action.payload
-        }
-      default:
-        return state;
-    }
-  }
-
-  const [state, dispatch] = useReducer(reducer, initState)
-
-  const { isQuery, listQuery, isModalVisible } = state
-
-  const [form] = Form.useForm();
-
+  const { _state, _dispatch } = useContext(Context);
+  const { isModalVisible } = _state;
   const { run, isSuccess, data: list } = useAsync<any>();
 
-  // useEffect(() => {
-  //   console.log(listQuery)
-  //   run(getBootHot(listQuery))
-  // }, [listQuery.page, listQuery.limit, isQuery])
-  // console.log(isSuccess, 'params===')
   // add
   const handleAdd = () => {
-    dispatch({
-      type: 'success',
-      payload: {
-        isModalVisible: true
-      }
-    })
-  }
-
-  const handleCancel = () => {
-    dispatch({
-      type: 'success',
-      payload: {
-        isModalVisible: false
-      }
-    })
-  }
-
-  const handleOk = () => {
-    form.validateFields().then((values) => {
-      creatHotBook(values).then((res: any) => {
-        if (res.data.error_code === 0) {
-          // success
-          message.success(res.data.msg);
-          dispatch({
-            type: 'success',
-            payload: {
-              isModalVisible: false
-            }
-          })
-        }
-      })
+    _dispatch({
+      isModalVisible: true
     })
   }
 
@@ -95,14 +31,11 @@ const List: React.FC = (props: any) => {
       cancelText: '取消',
       onOk() {
         deleteHotBook(index).then((res: any) => {
-          if (res.data.error_code === 0) {
+          if (res.error_code === 0) {
             // success
-            message.success(res.data.msg);
-            dispatch({
-              type: 'success',
-              payload: {
-                isQuery: res.request
-              }
+            message.success(res.msg);
+            _dispatch({
+              type: 'refresh'
             })
           }
         })
@@ -160,6 +93,7 @@ const List: React.FC = (props: any) => {
     <ProTable<TableListItem>
       rowKey="id"
       columns={columns}
+      params={{ onRefresh: _state.onRefresh }}
       pagination={{
         showQuickJumper: true
       }}
@@ -186,43 +120,7 @@ const List: React.FC = (props: any) => {
         </Button>,
       ]}
     />
-    <Modal title="新增图书" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-      <Form
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 20 }}
-        form={form}
-      >
-        <Form.Item
-          label="图书id"
-          name="id"
-          rules={[{ required: true }]}
-        >
-          <Input placeholder="请输入图书id" />
-        </Form.Item>
-        <Form.Item
-          label="图书名称"
-          name="title"
-          rules={[{ required: true }]}
-        >
-          <Input placeholder="请输入图书名称" />
-        </Form.Item>
-        <Form.Item
-          label="图书作者"
-          name="author"
-          rules={[{ required: true }]}
-        >
-          <Input placeholder="请输入图书作者" />
-        </Form.Item>
-        <Form.Item
-          label="缩略图"
-          name="image"
-          rules={[{ required: true }]}
-        >
-          <Input placeholder="请输入封面url" />
-        </Form.Item>
-      </Form>
-    </Modal>
-
+    {isModalVisible ? <AddModal /> : ''}
   </div>)
 };
 
