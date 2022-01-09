@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Layout } from 'antd';
 import { BrowserRouter } from 'react-router-dom';
-import { GlobalProvider } from '@src/store/GlobalProvider';
+import { GlobalProvider } from '@src/contextStore/GlobalProvider';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Login from '@src/pages/Login';
 import LayoutDefault from '@src/layout';

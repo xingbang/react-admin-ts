@@ -1,5 +1,5 @@
 import { actionLog } from './actionLog';
-import { CustomReducer, initialState } from '@src/store/CustomProvider';
+import { CustomReducer, initialState } from '@src/contextStore/CustomProvider';
 
 const reducer: CustomReducer = (state, action) => {
   if (!action.type) {

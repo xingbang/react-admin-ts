@@ -30,6 +30,7 @@ export const getRoutes = (routerData: any) => {
 };
 
 const BookHot = lazy(() => import('@src/pages/Book/Hot'));
+const UserList = lazy(() => import('@src/pages/User'));
 
 export const getRouterData = () => {
   const routerData: any = {
@@ -38,6 +39,9 @@ export const getRouterData = () => {
     },
     '/book/list': {
       component: BookHot
+    },
+    '/user/list': {
+      component: UserList
     }
   };
 

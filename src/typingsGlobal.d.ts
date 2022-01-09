@@ -1,5 +1,5 @@
-import { GlobalState, GlobalDispatch } from '@src/store/GlobalProvider';
-import { CustomState, CustomDispatch } from '@src/store/CustomProvider';
+import { GlobalState, GlobalDispatch } from '@src/contextStore/GlobalProvider';
+import { CustomState, CustomDispatch } from '@src/contextStore/CustomProvider';
 
 declare namespace GlobalType {
   interface GState extends GlobalState {}

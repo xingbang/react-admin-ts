@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Modal, Form, Input, message } from 'antd';
-import { Context } from '@src/store/CustomProvider';
+import { Context } from '@src/contextStore/CustomProvider';
 import { creatHotBook } from '@src/service/api/book';
 
 const AddModal: React.FC = () => {
@@ -12,8 +12,8 @@ const AddModal: React.FC = () => {
   const handleCancel = () => {
     _dispatch({
       isModalVisible: false
-    })
-  }
+    });
+  };
 
   // onok
   const handleOk = () => {
@@ -27,49 +27,29 @@ const AddModal: React.FC = () => {
             payload: {
               isModalVisible: false
             }
-          })
+          });
         }
-      })
-    })
-  }
+      });
+    });
+  };
   return (
     <Modal title="新增图书" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-      <Form
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 20 }}
-        form={form}
-      >
-        <Form.Item
-          label="图书id"
-          name="id"
-          rules={[{ required: true }]}
-        >
+      <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }} form={form}>
+        <Form.Item label="图书id" name="id" rules={[{ required: true }]}>
           <Input placeholder="请输入图书id" />
         </Form.Item>
-        <Form.Item
-          label="图书名称"
-          name="title"
-          rules={[{ required: true }]}
-        >
+        <Form.Item label="图书名称" name="title" rules={[{ required: true }]}>
           <Input placeholder="请输入图书名称" />
         </Form.Item>
-        <Form.Item
-          label="图书作者"
-          name="author"
-          rules={[{ required: true }]}
-        >
+        <Form.Item label="图书作者" name="author" rules={[{ required: true }]}>
           <Input placeholder="请输入图书作者" />
         </Form.Item>
-        <Form.Item
-          label="缩略图"
-          name="image"
-          rules={[{ required: true }]}
-        >
+        <Form.Item label="缩略图" name="image" rules={[{ required: true }]}>
           <Input placeholder="请输入封面url" />
         </Form.Item>
       </Form>
     </Modal>
-  )
-}
+  );
+};
 
 export default AddModal;

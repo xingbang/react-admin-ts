@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import InitState from '@src/store/InitState';
+import InitState from '@src/contextStore/InitState';
 import reducer from './reducer';
 
 export const initialState = InitState;
@@ -10,7 +10,7 @@ export type CustomAction = { type?: ActionType; payload?: DeepPartial<CustomStat
 export type CustomDispatch = React.Dispatch<CustomAction>;
 export type CustomReducer = React.Reducer<CustomState, CustomAction>;
 
-const Idispatch: CustomDispatch = () => { };
+const Idispatch: CustomDispatch = () => {};
 
 export const Context: React.Context<{
   _state: CustomState;

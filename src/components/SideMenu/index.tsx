@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Layout, Menu } from 'antd';
-import { Context } from '@src/store/CustomProvider';
+import { Context } from '@src/contextStore/CustomProvider';
 import type { MenuDataItem } from '@src/router/router';
 import type { RouteComponentProps } from 'react-router-dom';
 import styles from './index.less';
@@ -8,7 +8,7 @@ import styles from './index.less';
 const SubMenu = Menu.SubMenu;
 const { Sider } = Layout;
 
-type MenuId = number;   // 菜单的主键ID；
+type MenuId = number; // 菜单的主键ID；
 
 export interface PermissionModelState {
   loading?: boolean;
@@ -18,8 +18,8 @@ export interface PermissionModelState {
   };
   // 按钮权限 键-值：按钮权限标识-主键ID
   buttonMap: {
-    [propName: string]: MenuId
-  }
+    [propName: string]: MenuId;
+  };
 }
 
 interface ISideMenuProps {
@@ -39,8 +39,8 @@ const SideMenu = (props: ISideMenuProps) => {
     const menuKeys = getMenuKeys(props.location.pathname);
     setOpenKeys(menuKeys);
     const selectKeysAll = menuKeys.length === 0 ? [props.menuData[0].path] : menuKeys;
-    setSelectKeys(selectKeysAll)
-  }, [props.location.pathname, props.menuData])
+    setSelectKeys(selectKeysAll);
+  }, [props.location.pathname, props.menuData]);
 
   const getFlatMenuKeys = (menus: MenuDataItem[]) => {
     let keys: any = [];
@@ -53,7 +53,7 @@ const SideMenu = (props: ISideMenuProps) => {
       }
     });
     return keys;
-  }
+  };
 
   const getMenuKeys = (path: string): string[] => {
     const flatMenuKeys = getFlatMenuKeys(props.menuData);
@@ -61,15 +61,15 @@ const SideMenu = (props: ISideMenuProps) => {
     let back_arr: string[] = [];
     back_arr = arr.reduce((ret: any, item: any) => {
       if (ret.length === 0) {
-        return [item]
+        return [item];
       } else {
         return [...ret, ret[ret.length - 1] + '/' + item];
       }
     }, []);
     back_arr.shift();
-    return back_arr.filter(item => {
+    return back_arr.filter((item) => {
       return flatMenuKeys.indexOf(item) > -1;
-    })
+    });
   };
 
   const menuItemClick = (path: string) => {
@@ -80,16 +80,16 @@ const SideMenu = (props: ISideMenuProps) => {
   // 菜单遍历
   const getNavMenuItems = (menuData: MenuDataItem[], isSubMenu = false) => {
     if (!menuData) {
-      return []
+      return [];
     }
     if (!isSubMenu) {
       rootSubmenuKeys = [];
     }
     return menuData.map((item: any) => {
       if (!isSubMenu && item.children) rootSubmenuKeys.push(item.path);
-      let Icon
+      let Icon;
       if (item.icon) {
-        Icon = require('@ant-design/icons')[item.icon]
+        Icon = require('@ant-design/icons')[item.icon];
       }
       if (item.children) {
         return (
@@ -100,22 +100,19 @@ const SideMenu = (props: ISideMenuProps) => {
                 {Icon && <Icon style={{ fontSize: '18px', verticalAlign: 'sub' }} />}
                 <span>{item.name}</span>
               </span>
-            }
-          >
-            {
-              getNavMenuItems(item.children, true)
-            }
+            }>
+            {getNavMenuItems(item.children, true)}
           </SubMenu>
-        )
+        );
       } else {
         return (
           <Menu.Item key={item.path} onClick={() => menuItemClick(item.path)}>
             {Icon && <Icon style={{ fontSize: '18px', verticalAlign: 'sub' }} />} <span>{item.name}</span>
           </Menu.Item>
-        )
+        );
       }
-    })
-  }
+    });
+  };
 
   // 过滤权限菜单
   const filterMenuData = (menuData: MenuDataItem[], permissionMap: PermissionModelState['menuMarkMap']): MenuDataItem[] => {
@@ -128,22 +125,22 @@ const SideMenu = (props: ISideMenuProps) => {
           //for (let j = 0; j < permissionMap.length; j++) {
           if (!item.permission || permissionMap[item.permission]) {
             if (item.children) {
-              const children = dfs(item.children)
-              item.children = children
+              const children = dfs(item.children);
+              item.children = children;
             }
-            ret.push(item)
+            ret.push(item);
           }
           //}
         }
       }
-      return ret
-    }
+      return ret;
+    };
     const ret = dfs(menuData);
     return ret;
-  }
+  };
 
   const handSelect = (e: any) => {
-    setSelectKeys(e.selectedKeys)
+    setSelectKeys(e.selectedKeys);
   };
 
   const handMenuChange = (keys: any) => {
@@ -160,12 +157,10 @@ const SideMenu = (props: ISideMenuProps) => {
     <Sider trigger={null} collapsed={_state.isCollapsed} width={250}>
       <div className={styles.sideTit}>管理系统</div>
       <Menu theme="dark" mode="inline" selectedKeys={selectKeys} openKeys={openKeys} onSelect={handSelect} onOpenChange={handMenuChange}>
-        {
-          getNavMenuItems(filterMenuData(props.menuData, props.permission.menuMarkMap))
-        }
+        {getNavMenuItems(filterMenuData(props.menuData, props.permission.menuMarkMap))}
       </Menu>
     </Sider>
-  )
-}
+  );
+};
 
 export default SideMenu;

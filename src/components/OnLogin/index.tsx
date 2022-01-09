@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Modal } from 'antd';
-import { Context } from '@src/store/GlobalProvider';
-import { withRouter } from "react-router-dom";
+import { Context } from '@src/contextStore/GlobalProvider';
+import { withRouter } from 'react-router-dom';
 
 const OnLogin: React.FC = (props: any) => {
   const { g_state } = useContext(Context);
@@ -17,10 +17,11 @@ const OnLogin: React.FC = (props: any) => {
     setIsModalVisible(false);
   };
 
-
-  return <Modal title="登录提示" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-    <p>登录状态失效，请重新登录！！</p>
-  </Modal>
+  return (
+    <Modal title="登录提示" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <p>登录状态失效，请重新登录！！</p>
+    </Modal>
+  );
 };
 
 // https://github.com/brickspert/blog/issues/3
