@@ -4,7 +4,24 @@ import request from '../http';
 export function createUserApi(params) {
   return request({
     url: process.env.REACT_APP_API_URL + '/api/v1/user/create',
-    method: 'POST',
+    method: 'post',
+    data: params
+  });
+}
+
+// 删除用户
+export function delUserApi(params) {
+  return request({
+    url: process.env.REACT_APP_API_URL + '/api/v1/user/delete/' + params,
+    method: 'delete'
+  });
+}
+
+// 修改用户
+export function putUserApi(params) {
+  return request({
+    url: process.env.REACT_APP_API_URL + '/api/v1/user/update',
+    method: 'put',
     data: params
   });
 }
@@ -13,7 +30,7 @@ export function createUserApi(params) {
 export function getUserListApi(params) {
   return request({
     url: process.env.REACT_APP_API_URL + '/api/v1/user/list',
-    method: 'GET',
+    method: 'get',
     params
   });
 }
@@ -22,7 +39,7 @@ export function getUserListApi(params) {
 export function getToken(params) {
   return request({
     url: process.env.REACT_APP_API_URL + '/api/v1/token',
-    method: 'POST',
+    method: 'post',
     data: params
   });
 }

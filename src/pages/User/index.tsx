@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { Button, Space } from 'antd';
+import { Button, Space, Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserList } from '@src/store/slice/user.slice';
 import { UserListItem } from '@src/typing/User';
 import { RootState } from '@src/store';
-import { handleAdd } from '@src/store/slice/user.slice';
+import { handleAdd, handlePut, delUser } from '@src/store/slice/user.slice';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import AddModal from './components/AddModal';
@@ -13,6 +14,21 @@ const User: React.FC = () => {
   const dispatch = useDispatch();
   // 取值
   const { addModal, onRefresh } = useSelector((state: RootState) => state.user);
+
+  console.log('test');
+
+  const deleteRow = (index: number): void => {
+    Modal.confirm({
+      title: 'Confirm',
+      icon: <ExclamationCircleOutlined />,
+      content: '确认删除这条数据？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk() {
+        dispatch(delUser(index));
+      }
+    });
+  };
 
   const columns: ProColumns<UserListItem>[] = [
     {
@@ -41,14 +57,14 @@ const User: React.FC = () => {
             <a
               type="link"
               onClick={() => {
-                // deleteRow(render.index);
+                dispatch(handlePut(render));
               }}>
               修改
             </a>
             <a
               type="link"
               onClick={() => {
-                // deleteRow(render.index);
+                deleteRow(render.id);
               }}>
               删除
             </a>
