@@ -27,14 +27,24 @@ const menuData: MenuDataItem[] = [
     ]
   },
   {
-    name: '个人中心',
-    path: '/user',
+    name: '权限管理',
+    path: '/root',
     permission: 'user',
     icon: 'TeamOutlined',
     children: [
       {
-        name: '人员详情',
-        path: '/user/list',
+        name: '用户管理',
+        path: '/root/user',
+        permission: 'user'
+      },
+      {
+        name: '角色管理',
+        path: '/root/role',
+        permission: 'user'
+      },
+      {
+        name: '菜单管理',
+        path: '/root/menu',
         permission: 'user'
       }
     ]

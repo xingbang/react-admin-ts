@@ -17,13 +17,15 @@ Request.interceptors.request.use(
   },
   (error) => {
     message.error('服务器异常，请联系管理员');
-    return Promise.resolve(error);
+    return Promise.reject(error);
+    // return Promise.resolve({ msg: error });
   }
 );
 
 // 响应拦截器
 Request.interceptors.response.use(
   (response: AxiosResponse | any) => {
+    console.log();
     if (response.data.error_code != 0) {
       message.error(response.data.msg);
       return Promise.reject();
@@ -33,7 +35,8 @@ Request.interceptors.response.use(
   },
   (error) => {
     message.error('服务器异常，请联系管理员');
-    return Promise.resolve(error);
+    return Promise.reject(error);
+    // return Promise.resolve({ msg: error });
   }
 );
 
