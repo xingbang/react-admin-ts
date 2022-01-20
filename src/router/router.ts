@@ -43,7 +43,13 @@ const menuData: MenuDataItem[] = [
         permission: 'user'
       },
       {
-        name: '菜单管理',
+        name: '角色管理详情页',
+        path: '/root/role/detail',
+        permission: 'user',
+        isHide: true
+      },
+      {
+        name: '菜单权限管理',
         path: '/root/menu',
         permission: 'user'
       }

@@ -30,24 +30,20 @@ const User: React.FC = () => {
 
   const columns: ProColumns<MenuListItem>[] = [
     {
-      title: '菜单ID',
+      title: '权限ID',
       dataIndex: 'id'
     },
     {
-      title: '菜单名称',
+      title: '权限菜单名称',
       dataIndex: 'name'
     },
     {
-      title: '父级菜单',
-      dataIndex: 'father_id'
+      title: '权限标识',
+      dataIndex: 'permission'
     },
     {
-      title: 'url',
-      dataIndex: 'url'
-    },
-    {
-      title: '菜单icon',
-      dataIndex: 'icon_name'
+      title: '描述',
+      dataIndex: 'describe'
     },
     {
       title: '操作',
@@ -94,7 +90,7 @@ const User: React.FC = () => {
         }}
         search={false}
         dateFormatter="string"
-        headerTitle="菜单管理"
+        headerTitle="菜单权限管理"
         toolBarRender={() => [
           <Button type="primary" key="primary" onClick={() => dispatch(handleAdd())}>
             新增

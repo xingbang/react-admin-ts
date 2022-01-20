@@ -33,6 +33,7 @@ const BookHot = lazy(() => import('@src/pages/Book/Hot'));
 const UserList = lazy(() => import('@src/pages/User'));
 const RoleList = lazy(() => import('@src/pages/Role'));
 const MenuList = lazy(() => import('@src/pages/Menu'));
+const RoleDetail = lazy(() => import('@src/pages/RoleDetail'));
 
 export const getRouterData = () => {
   const routerData: any = {
@@ -47,6 +48,9 @@ export const getRouterData = () => {
     },
     '/root/role': {
       component: RoleList
+    },
+    '/root/role/detail': {
+      component: RoleDetail
     },
     '/root/menu': {
       component: MenuList

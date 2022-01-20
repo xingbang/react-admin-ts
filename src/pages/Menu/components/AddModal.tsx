@@ -43,17 +43,14 @@ const AddModal: React.FC = () => {
       onCancel={isPut ? handlePutCancel : handleCancel}
       confirmLoading={loading}>
       <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }} form={form}>
-        <Form.Item label="菜单名称" name="name" rules={[{ required: true }]} initialValue={isPut ? rowData.name : ''}>
+        <Form.Item label="权限名称" name="name" rules={[{ required: true }]} initialValue={isPut ? rowData.name : ''}>
           <Input placeholder="请输入角色名称" />
         </Form.Item>
-        <Form.Item label="父级菜单" name="father_id" initialValue={isPut ? rowData.father_id : ''}>
-          <Input placeholder="请输入父级菜单" />
+        <Form.Item label="权限标识" name="permission" rules={[{ required: true }]} initialValue={isPut ? rowData.permission : ''}>
+          <Input placeholder="请输入权限标" />
         </Form.Item>
-        <Form.Item label="url" name="url" rules={[{ required: true }]} initialValue={isPut ? rowData.url : ''}>
-          <Input placeholder="请输入url" />
-        </Form.Item>
-        <Form.Item label="图标名称" name="icon_name" initialValue={isPut ? rowData.icon_name : ''}>
-          <Input placeholder="请输入图标名称" />
+        <Form.Item label="权限描述" name="describe" initialValue={isPut ? rowData.describe : ''}>
+          <Input placeholder="请输入权限描述" />
         </Form.Item>
       </Form>
     </Modal>
