@@ -9,6 +9,19 @@ export interface MenuDataItem {
 
 const menuData: MenuDataItem[] = [
   {
+    name: 'three',
+    path: '/three',
+    permission: 'three',
+    icon: 'CloudOutlined',
+    children: [
+      {
+        name: 'three demo',
+        path: '/three/list',
+        permission: 'three'
+      }
+    ]
+  },
+  {
     name: '书籍',
     path: '/book',
     permission: 'book',

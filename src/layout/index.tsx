@@ -66,7 +66,7 @@ const LayoutDefault: React.FC = (props: any) => {
                       path={item.path}
                       exact={true}
                       render={(props) => {
-                        console.log(item);
+                        // console.log(item);
                         if (!pathAuto[item.path]) {
                           return <item.component {...props} />;
                         }

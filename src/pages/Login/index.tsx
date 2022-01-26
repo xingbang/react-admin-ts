@@ -27,6 +27,11 @@ const Login: React.FC = (props: any) => {
           id: 2000,
           permission: 'book',
           type: 1
+        },
+        {
+          id: 3000,
+          permission: 'three',
+          type: 1
         }
       ];
 

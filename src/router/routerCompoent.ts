@@ -34,6 +34,7 @@ const UserList = lazy(() => import('@src/pages/User'));
 const RoleList = lazy(() => import('@src/pages/Role'));
 const MenuList = lazy(() => import('@src/pages/Menu'));
 const RoleDetail = lazy(() => import('@src/pages/RoleDetail'));
+const Three = lazy(() => import('@src/pages/Three'));
 
 export const getRouterData = () => {
   const routerData: any = {
@@ -54,6 +55,9 @@ export const getRouterData = () => {
     },
     '/root/menu': {
       component: MenuList
+    },
+    '/three/list': {
+      component: Three
     }
   };
 
