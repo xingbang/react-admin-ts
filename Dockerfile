@@ -1,5 +1,5 @@
 # 使用镜像
-FROM node:14.16.0
+FROM node:14.16.0 AS build
 
 # 设置容器内目录
 WORKDIR /app
